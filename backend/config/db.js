@@ -8,7 +8,7 @@ const url = process.env.DATABASE_URL;
 const local = !url || /localhost|127\.0\.0\.1|host=\//.test(url);
 
 const pool = new Pool(url
-  ? { connectionString: url, ssl: local ? false : { rejectUnauthorized: false } }
+  ? { connectionString: url, keepAlive: true, ssl: local ? false : { rejectUnauthorized: false } }
   : {
       host: process.env.PGHOST || 'localhost',
       port: Number(process.env.PGPORT) || 5432,

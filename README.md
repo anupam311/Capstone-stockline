@@ -4,6 +4,10 @@
 
 Stockline is an order, stock and reporting platform in which PostgreSQL is the system of record and the system of logic. Stock control, pricing, validation, auditing, authentication and access control are implemented inside the database as functions, procedures, triggers, views and roles. The API layer is deliberately thin: it verifies a session, assumes the caller's database role and invokes a single routine. Every client that talks to the database therefore gets the same rules, and none of them can bypass them.
 
+## Live demo
+
+https://capstone-stockline-frontend.onrender.com
+
 ## Contents
 
 1. [Capabilities](#capabilities)
@@ -225,27 +229,6 @@ Responses use the shape `{ ok, data, message }` on success and `{ ok: false, err
 | Customer | aman@mail.com | customer123 |
 
 Two further customers, `bhavna@mail.com` and `chirag@mail.com`, use the same customer password.
-
-## Loading real data
-
-The seed data is a small hand-written sample. For realistic volume, import the **Olist Brazilian E-Commerce Public Dataset**, real anonymised marketplace orders from 2016 to 2018. Kaggle lists it under CC BY-NC-SA 4.0, so use it non-commercially, check the licence on the dataset page, and credit Olist.
-
-1. Download it from https://www.kaggle.com/datasets/olistbr/brazilian-ecommerce (a free Kaggle account is required) and unzip it.
-2. Copy these five files into `backend/data/olist/`:
-   - `olist_customers_dataset.csv`
-   - `olist_orders_dataset.csv`
-   - `olist_order_items_dataset.csv`
-   - `olist_products_dataset.csv`
-   - `product_category_name_translation.csv`
-3. From `backend/`, make sure the database exists (`npm run setup`), then run:
-   ```
-   npm install
-   npm run import:olist
-   ```
-   The default is a 2,000-order sample. For another size: `npm run import:olist -- data/olist 5000`.
-4. Refresh the application. No restart is needed.
-
-To load a hosted database, set `DATABASE_URL` first and run the same command. The CSV files are uploaded to the database server, roughly 50 MB in total.
 
 **How the data is mapped**
 
